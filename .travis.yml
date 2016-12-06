@@ -1,0 +1,15 @@
+language: python
+python:
+  - '2.7.12'
+  - '3.5'
+install:
+  - pip install -r requirements.txt
+  - pip install -r requirements-dev.txt
+  - python setup.py install
+before_script: flake8 pyramid_straw
+script: py.test -v tests
+deploy:
+  provider: pypi
+  user: dz0ny
+  on:
+    tags: true

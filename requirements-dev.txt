@@ -1,0 +1,7 @@
+flake8
+pytest
+coverage
+tox
+isort
+pyramid_debugtoolbar
+sqlalchemy

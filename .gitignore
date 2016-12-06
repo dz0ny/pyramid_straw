@@ -1,0 +1,12 @@
+.venv
+*~
+*.egg-info
+*.egg
+.coverage
+.coverage.*
+coverage
+.tox
+settings.py
+*.pyc
+.idea/*
+.cache/*
