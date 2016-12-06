@@ -1,5 +1,4 @@
 import logging
-import resource
 import timeit
 import os
 import psutil
@@ -17,14 +16,17 @@ logger = logging.getLogger(__name__)
 
 
 def re_query(query, params):
+    """Replace query params with actual parameters."""
     for k,v in params.iteritems():
         query = query.replace('%({})s'.format(k), str(v))
     return query
 
+
 def sizeof_fmt(num, suffix='B'):
-    for unit in ['','Ki','Mi','Gi','Ti','Pi','Ei','Zi']:
+    """Format the bytes."""
+    for unit in ['', 'Ki', 'Mi', 'Gi', 'Ti', 'Pi', 'Ei', 'Zi']:
         if abs(num) < 1024.0:
-            return "%3.1f%s%s" % (num, unit, suffix)
+            return '%3.1f%s%s'.format(num, unit, suffix)
         num /= 1024.0
     return '{}:.1f%s%s'.format(num, 'Yi', suffix)
 
@@ -44,11 +46,13 @@ def humanize(lines, only_paths):
 
 
 def get_used_memory():
+    """Gets the non-shared memory about process."""
     process = psutil.Process(os.getpid())
     return process.memory_info().rss
 
 
 def add_to_debug_toolbar(data):
+    """Inject analyzed data in request."""
     request = get_current_request()
     if not request:
         return
