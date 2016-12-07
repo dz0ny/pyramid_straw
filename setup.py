@@ -27,10 +27,10 @@ setup(
     platforms='any',
     install_requires=[
         'pyramid',
-        'psutils',
-        'requests',
         'psutil',
         'SQLAlchemy',
+    ],
+    develop_requires=[
         'pyramid_debugtoolbar',
     ],
     classifiers=[

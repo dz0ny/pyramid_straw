@@ -1,4 +1,5 @@
-from pyramid_straw.profiler import re_query, sizeof_fmt
+from pyramid_straw.profiler import re_query
+from pyramid_straw.profiler import sizeof_fmt
 
 import unittest
 

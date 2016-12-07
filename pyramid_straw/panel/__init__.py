@@ -1,6 +1,8 @@
 from pyramid_debugtoolbar.panels import DebugPanel
 from pyramid_debugtoolbar.utils import format_sql as ppq
 
+STATIC_PATH = 'pyramid_straw:static/'
+
 
 def format_sql(query):
     query = ppq(query)
@@ -39,8 +41,15 @@ class StrawDebugPanel(DebugPanel):
             )
 
     def render_vars(self, request):
-        return {'queries': self.queries, 'format_sql': format_sql}
+        return {
+            'queries': self.queries,
+            'format_sql': format_sql,
+            'static_path': '/_debug_toolbar/straw/static/'
+        }
 
 
 def includeme(config):
+    config.add_static_view(
+        '/_debug_toolbar/straw', STATIC_PATH, static=True)
     config.registry.settings['debugtoolbar.panels'].append(StrawDebugPanel)
+    config.commit()

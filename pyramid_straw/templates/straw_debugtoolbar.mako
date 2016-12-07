@@ -57,8 +57,8 @@
     }
 </style>
 <--! TODO: vendor static assets ——>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.5.13/clipboard.min.js"></script>
-<script src="http://listjs.com/assets/javascripts/list.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.5.13/clipboard.min.js"></script>
+<script src="//listjs.com/assets/javascripts/list.min.js"></script>
 <script>
     var options = {
         valueNames: ['res', 'query']
