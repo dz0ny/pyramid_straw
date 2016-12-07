@@ -16,7 +16,7 @@ with codecs.open(os.path.join(os.path.abspath(os.path.dirname(
         raise RuntimeError('Unable to determine version.')
 
 setup(
-    name='Pramid-Straw',
+    name='pyramid_straw',
     version=version,
     url='http://github.com/dz0ny/pyramid_straw/',
     license='MIT',
