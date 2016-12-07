@@ -27,7 +27,7 @@ setup(
     platforms='any',
     install_requires=[
         'pyramid',
-        'pyramid_jinja2',
+        'psutils',
         'requests',
         'psutil',
         'SQLAlchemy',

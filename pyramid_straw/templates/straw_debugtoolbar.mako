@@ -1,4 +1,4 @@
-<table class="table table-striped" id="stats">
+<table id="pSqlaTable" class="table table-striped" id="stats">
     <thead>
     <tr>
         <th><a class="sort" data-sort="res" href="#">Resources</a></th>
@@ -9,7 +9,7 @@
         % for query in queries:
             <tr>
                 <td class="res">${'%.2f' % query['duration']}ms / ${query['memory']}</td>
-                <td><span class="query">${query['query']}</span>
+                <td><span class="highlight">${format_sql(query['query']) | n}</span>
                     <div class="traceback">
                         % for line in query['lines']:
                             <p><a href="file://${line['filename']}:${line['at']}">${line['filename']}

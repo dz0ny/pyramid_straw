@@ -1,4 +1,5 @@
 from pyramid_debugtoolbar.panels import DebugPanel
+from pyramid_debugtoolbar.utils import format_sql
 
 
 class StrawDebugPanel(DebugPanel):
@@ -25,10 +26,14 @@ class StrawDebugPanel(DebugPanel):
     @property
     def nav_subtitle(self):
         if self.queries:
-            return "{} ({:.3f}ms)".format(len(self.queries), sum(map(lambda x: x['duration'], self.queries)))
+            return "{} ({:.3f}ms)".format(
+                len(self.queries),
+                sum(map(lambda x: x['duration'], self.queries))
+            )
 
     def render_vars(self, request):
-        return {'queries':self.queries}
+
+        return {'queries': self.queries, 'format_sql': format_sql}
 
 
 def includeme(config):

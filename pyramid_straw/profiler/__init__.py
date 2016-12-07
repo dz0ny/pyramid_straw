@@ -1,9 +1,13 @@
 import logging
+import threading
 import timeit
 import os
 import psutil
 import requests
 from pyramid.threadlocal import get_current_request
+
+lock = threading.Lock()
+
 
 """Provides an ``includeme`` function that lets developers configure the
   package to be part of their Pyramid application with::
@@ -17,8 +21,12 @@ logger = logging.getLogger(__name__)
 
 def re_query(query, params):
     """Replace query params with actual parameters."""
-    for k,v in params.iteritems():
-        query = query.replace('%({})s'.format(k), str(v))
+    if type(params) is dict:
+        for k, v in params.iteritems():
+            query = query.replace('%({})s'.format(k), str(v))
+    if type(params) is tuple:
+        for v in params:
+            query = query.replace('?', str(v), 1)
     return query
 
 
@@ -37,7 +45,8 @@ def humanize(lines, only_paths):
         (f, filename, at, function, l, i) = x
         # Will skip any lines that are not included
         if not any([x in filename for x in only_paths]):
-           continue
+            continue
+
         yield {
             'filename': filename.strip(),
             'at': at,
