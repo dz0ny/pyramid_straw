@@ -1,5 +1,12 @@
 from pyramid_debugtoolbar.panels import DebugPanel
-from pyramid_debugtoolbar.utils import format_sql
+from pyramid_debugtoolbar.utils import format_sql as ppq
+
+
+def format_sql(query):
+    query = ppq(query)
+    query = query.replace(',', ',<br/>')
+    query = query.replace('JOIN', '<br/>&nbsp;JOIN')
+    return query
 
 
 class StrawDebugPanel(DebugPanel):
@@ -10,7 +17,7 @@ class StrawDebugPanel(DebugPanel):
     name = 'straw'
     template = 'pyramid_straw:templates/straw_debugtoolbar.mako'
     title = 'SQLAlchemy Profiler'
-    nav_title = 'SQLAlchemy Profiler'
+    nav_title = 'Straw'
 
     def __init__(self, request):
         super(StrawDebugPanel, self).__init__(request)
@@ -32,7 +39,6 @@ class StrawDebugPanel(DebugPanel):
             )
 
     def render_vars(self, request):
-
         return {'queries': self.queries, 'format_sql': format_sql}
 
 

@@ -3,7 +3,7 @@ import threading
 import timeit
 import os
 import psutil
-import requests
+import inspect
 from pyramid.threadlocal import get_current_request
 
 lock = threading.Lock()
@@ -32,11 +32,12 @@ def re_query(query, params):
 
 def sizeof_fmt(num, suffix='B'):
     """Format the bytes."""
+
     for unit in ['', 'Ki', 'Mi', 'Gi', 'Ti', 'Pi', 'Ei', 'Zi']:
         if abs(num) < 1024.0:
-            return '%3.1f%s%s'.format(num, unit, suffix)
+            return '{:.1f}{}{}'.format(num, unit, suffix)
         num /= 1024.0
-    return '{}:.1f%s%s'.format(num, 'Yi', suffix)
+    return '{:.1f}{}{}'.format(num, 'Yi', suffix)
 
 
 def humanize(lines, only_paths):
@@ -66,51 +67,57 @@ def add_to_debug_toolbar(data):
 
     if not request and getattr(request, 'straw_data', None):
         return
-    request.straw_data.append(data)
+
+    with lock:
+        request.straw_data.append(data)
 
 
 def includeme(config):
     settings = config.registry.settings
 
-    # For example https://straw.io/060694b4b5cc2ed303db73f25ef604a8
-    dsn = settings.get('pyramid_straw.dsn', None)
+    # Custom sender for reports, needs to be callable
+    dsn_factory = settings.get('pyramid_straw.report_hook', None)
 
     # Enable or disable saving data to request based on debugtoolbar presence
     debug_toolbar = len(settings.get('debugtoolbar.panels', []))
+
+    # Control the inspection of query
+    disable_inspect = settings.get('pyramid_straw.disable_inspect', False)
 
     # For example src/my_project_name/models
     only_paths = settings.get('pyramid_straw.only_paths', [])
 
     try:
-        import inspect
         from sqlalchemy import event
         from sqlalchemy.engine.base import Engine
 
-        @event.listens_for(Engine, 'before_cursor_execute')
         def _before(conn, cursor, query, params, context, execmany):
             setattr(context, 'straw_start_timer', timeit.default_timer())
             setattr(context, 'straw_start_memory', get_used_memory())
 
-        @event.listens_for(Engine, 'after_cursor_execute')
         def _after(conn, cursor, query, params, context, execmany):
             stop_timer = timeit.default_timer()
             duration = (stop_timer - context.straw_start_timer) * 1000
             memory = get_used_memory() - context.straw_start_memory
-            lines = inspect.getouterframes(inspect.currentframe())
-
             data = {
                 'duration': duration,
                 'memory': sizeof_fmt(memory),
                 'query': re_query(query, params),
                 'parameters': params,
-                'lines': humanize(lines, only_paths)
+                'lines': []
             }
-            if dsn:
-                requests.post(dsn, json=data)
-
+            if not disable_inspect:
+                lines = inspect.getouterframes(inspect.currentframe())
+                # NOTE: introspection takes a bit so it will add about .3-.5ms
+                # to query timing
+                data['lines'] = humanize(lines, only_paths)
+            if dsn_factory and callable(dsn_factory):
+                dsn_factory(data)
             if debug_toolbar:
                 add_to_debug_toolbar(data)
-
+        if dsn_factory or debug_toolbar:
+            event.listen(Engine, 'before_cursor_execute', _before)
+            event.listen(Engine, 'after_cursor_execute', _after)
     except ImportError:
         logger.warning('SQLAlchemy is not installed.')
 
