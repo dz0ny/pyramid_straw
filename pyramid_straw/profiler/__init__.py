@@ -63,7 +63,8 @@ def get_used_memory():
 def add_to_debug_toolbar(data):
     """Inject analyzed data in request."""
     request = get_current_request()
-    if not request:
+
+    if not request and getattr(request, 'straw_data', None):
         return
     request.straw_data.append(data)
 
