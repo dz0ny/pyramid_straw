@@ -29,6 +29,9 @@ setup(
         'pyramid',
         'pyramid_jinja2',
         'requests',
+        'psutil',
+        'SQLAlchemy',
+        'pyramid_debugtoolbar',
     ],
     classifiers=[
         'Development Status :: 2 - Pre-Alpha',
