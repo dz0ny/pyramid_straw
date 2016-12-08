@@ -45,6 +45,7 @@ def make_application(settings, parent_registry):
 
     # overriding
     config.commit()
+    config.add_static_view('pev-static', 'pyramid_straw.panel.debugpanel_wsgi_app:static/pev')
     config.scan('pyramid_straw.panel.debugpanel_wsgi_app.views')
 
     return config.make_wsgi_app()

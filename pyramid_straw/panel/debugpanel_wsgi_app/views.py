@@ -14,7 +14,7 @@ class StrawSQLAlchemyViews(SQLAlchemyViews):
     )
     @view_config(
         route_name='debugtoolbar.sql_explain',
-        renderer='pyramid_debugtoolbar.panels:templates/sqlalchemy_explain.dbtmako',
+        renderer='pyramid_straw.panel.debugpanel_wsgi_app:templates/sqlalchemy_explain.dbtmako',
     )
     def sql_explain(self):
         query_dict = self.find_query()
@@ -53,4 +53,5 @@ class StrawSQLAlchemyViews(SQLAlchemyViews):
             'sql': format_sql(stmt),
             'str': str,
             'duration': float(query_dict['duration']),
+            'is_pev_applicable': bool(pev),
         }
