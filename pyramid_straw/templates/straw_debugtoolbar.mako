@@ -2,7 +2,7 @@
     <thead>
     <tr>
         <th><a class="sort" data-sort="res" href="#">Resources</a></th>
-        <th><input class="search" placeholder="Filter query"/></th>
+        <th><input class="search query-input" placeholder="Filter query"/></th>
     </tr>
     </thead>
     <tbody class="list">
@@ -51,7 +51,7 @@
         font-size: larger;
     }
 
-    .search {
+    .search.query-input {
         border: none;
         font-size: 1.2em
     }
