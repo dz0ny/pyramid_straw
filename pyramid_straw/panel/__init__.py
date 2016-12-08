@@ -49,6 +49,7 @@ class StrawDebugPanel(DebugPanel):
 
 
 def includeme(config):
+    config.include('pyramid_straw.panel.debugpanel_wsgi_app')
     config.add_static_view(
         '/_debug_toolbar/straw', STATIC_PATH, static=True)
     config.registry.settings['debugtoolbar.panels'].append(StrawDebugPanel)
