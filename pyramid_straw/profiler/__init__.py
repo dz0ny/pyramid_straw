@@ -61,11 +61,11 @@ def get_used_memory():
     return process.memory_info().rss
 
 
-def add_to_debug_toolbar(data):
+def to_toolbar(data):
     """Inject analyzed data in request."""
     request = get_current_request()
 
-    if not (request and getattr(request, 'straw_data', None)):
+    if getattr(request, 'straw_data', None):
         return
 
     with lock:
@@ -100,6 +100,7 @@ def includeme(config):
             duration = (stop_timer - context.straw_start_timer) * 1000
             memory = get_used_memory() - context.straw_start_memory
             data = {
+                'type': 'cursor',
                 'duration': duration,
                 'memory': sizeof_fmt(memory),
                 'query': re_query(query, params),
@@ -114,10 +115,16 @@ def includeme(config):
             if dsn_factory and callable(dsn_factory):
                 dsn_factory(data)
             if debug_toolbar:
-                add_to_debug_toolbar(data)
+                to_toolbar(data)
         if dsn_factory or debug_toolbar:
             event.listen(Engine, 'before_cursor_execute', _before)
             event.listen(Engine, 'after_cursor_execute', _after)
+
+            # Flow events
+            event.listen(Engine, 'begin', lambda x: to_toolbar({'type': 'begin'}))  # noqa
+            event.listen(Engine, 'commit', lambda x: to_toolbar({'type': 'commit'}))  # noqa
+            event.listen(Engine, 'rollback', lambda x: to_toolbar({'type': 'rollback'}))  # noqa
+
     except ImportError:
         logger.warning('SQLAlchemy is not installed.')
 

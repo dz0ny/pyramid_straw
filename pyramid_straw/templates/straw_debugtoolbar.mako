@@ -7,6 +7,17 @@
     </thead>
     <tbody class="list">
         % for query in queries:
+            ${str(query)}
+            % if query['type'] == 'begin':
+                <tr><hr style="background: green;"></tr>
+            % endif
+            % if query['type'] == 'commit':
+                <tr><hr style="background: green;"></tr>
+            % endif
+            % if query['type'] == 'rollback':
+                <tr><hr style="background: red;"></tr>
+            % endif
+            % if query['type'] == 'cursor':
             <tr>
                 <td class="res">${'%.2f' % query['duration']}ms
                     / ${query['memory']}</td>
@@ -24,13 +35,13 @@
                     <div class="traceback">
                         % for line in query['lines']:
                             <p>
-                                <a href="file://${line['filename']}:${line['at']}">${line['filename']}
-                                    :${line['at']}</a><br><span
+                                <a href="file://${line['filename']}:${line['at']}">${line['filename']}:${line['at']}</a><br><span
                                     class="slide">${line['function']}</span></p>
                         % endfor
                     </div>
                 </td>
             </tr>
+            % endif
         % endfor
     </tbody>
 </table>
@@ -56,9 +67,8 @@
         font-size: 1.2em
     }
 </style>
-<--! TODO: vendor static assets ——>
-<script src="//cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.5.13/clipboard.min.js"></script>
-<script src="//listjs.com/assets/javascripts/list.min.js"></script>
+<script src="${static_path}clipboard.min.js"></script>
+<script src="${static_path}list.min.js"></script>
 <script>
     var options = {
         valueNames: ['res', 'query']

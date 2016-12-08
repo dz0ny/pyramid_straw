@@ -1,9 +1,6 @@
 from pyramid_debugtoolbar.panels import DebugPanel
 from pyramid_debugtoolbar.utils import format_sql as ppq
 
-STATIC_PATH = 'pyramid_straw:static/'
-
-
 def format_sql(query):
     query = ppq(query)
     query = query.replace(',', ',<br/>')
@@ -35,22 +32,20 @@ class StrawDebugPanel(DebugPanel):
     @property
     def nav_subtitle(self):
         if self.queries:
+            cursor_queries = filter(lambda x: x['type'] == 'cursor', self.queries)  # noqa
             return "{} ({:.3f}ms)".format(
                 len(self.queries),
-                sum(map(lambda x: x['duration'], self.queries))
+                sum(map(lambda x: x['duration'], cursor_queries))
             )
 
     def render_vars(self, request):
         return {
             'queries': self.queries,
             'format_sql': format_sql,
-            'static_path': '/_debug_toolbar/straw/static/'
+            'static_path': '/_debug_toolbar/straw/static' # TOOO: fix this
         }
 
 
 def includeme(config):
     config.include('pyramid_straw.panel.debugpanel_wsgi_app')
-    config.add_static_view(
-        '/_debug_toolbar/straw', STATIC_PATH, static=True)
     config.registry.settings['debugtoolbar.panels'].append(StrawDebugPanel)
-    config.commit()

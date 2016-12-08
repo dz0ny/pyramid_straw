@@ -51,4 +51,6 @@ def make_application(settings, parent_registry):
         to_override='pyramid_debugtoolbar.panels:templates/sqlalchemy.dbtmako',
         override_with='pyramid_straw.panel.debugpanel_wsgi_app:templates/sqlalchemy.dbtmako')
 
+    config.add_static_view('/_debug_toolbar/straw/static', 'pyramid_straw:static/', static=True)
+
     return config.make_wsgi_app()
