@@ -22,7 +22,7 @@ logger = logging.getLogger(__name__)
 def re_query(query, params):
     """Replace query params with actual parameters."""
     if type(params) is dict:
-        for k, v in params.iteritems():
+        for k, v in params.items():
             query = query.replace('%({})s'.format(k), str(v))
     if type(params) is tuple:
         for v in params:
