@@ -29,10 +29,11 @@ setup(
         'pyramid',
         'psutil',
         'SQLAlchemy',
-    ],
-    develop_requires=[
         'pyramid_debugtoolbar',
     ],
+    extras_require={
+        'dev': ['pytest'],
+    },
     classifiers=[
         'Development Status :: 2 - Pre-Alpha',
         'Environment :: Web Environment',
