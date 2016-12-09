@@ -42,7 +42,7 @@ class StrawSQLAlchemyViews(SQLAlchemyViews):
         if self.request.params.get('type') == 'pev':
             return {
                 'headers': result.keys(),
-                'sql': format_sql(stmt),
+                'sql': stmt % params,
                 'duration': float(query_dict['duration']),
                 'pev': pev[0][0],
             }

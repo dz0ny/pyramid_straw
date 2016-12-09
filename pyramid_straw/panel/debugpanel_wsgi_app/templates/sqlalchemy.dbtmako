@@ -1,0 +1,92 @@
+<table id="pSqlaTable" class="pDebugSortable table table-striped">
+    <thead>
+        <tr>
+            <th>Time&nbsp;(ms)</th>
+            <th>Action</th>
+            <th>Query</th>
+            <th>Params</th>
+        </tr>
+    </thead>
+    <tbody>
+    % for i, query in enumerate(queries):
+        <tr>
+            <td>${'%.2f' % query['duration']}</td>
+            <td>
+            % if query['is_select']:
+                <!-- Button to trigger modal -->
+                <a href="${route_url('debugtoolbar.sql_select', request_id=pdtb_id, query_index=query['query_index'])}" data-target="#SelectModal" data-toggle="modal">SELECT</a>
+                <a href="${route_url('debugtoolbar.sql_explain', request_id=pdtb_id, query_index=query['query_index'])}" data-target="#ExplainModal" data-toggle="modal">EXPLAIN</a>
+            % endif
+            </td>
+            <td>${query['sql']|n}</td>
+            <td>${text(query['parameters'])}</td>
+        </tr>
+    % endfor
+    </tbody>
+</table>
+
+<!-- Modal -->
+<div class="modal fade" id="SelectModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<div class="modal fade" id="ExplainModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+<!-- /.modal -->
+
+##
+## See  "Twitter bootstrap remote modal shows same content everytime"
+##      * http://stackoverflow.com/questions/12286332/twitter-bootstrap-remote-modal-shows-same-content-everytime
+<script type="text/javascript">
+$(document).ready(function() {
+    var explainURL = "${route_url('debugtoolbar.sql_explain', request_id=pdtb_id, query_index=query['query_index'])}?type=pev",
+        showPEVButtonSelector = '#show-pev',
+        modalSelector = '#query-explain-modal';
+
+    $("#ExplainModal").on("hidden.bs.modal", function (e) {
+        $(e.target).removeData("bs.modal").find(".modal-content").empty();
+    });
+
+    $("#SelectModal").on("hidden.bs.modal", function (e) {
+        $(e.target).removeData("bs.modal").find(".modal-content").empty();
+    });
+
+    $('.modal').on('click', showPEVButtonSelector, function(){
+        $.get(explainURL, function(data){
+            $('#ExplainModal .modal-dialog').css('width', '95%');
+            $('#ExplainModal .modal-dialog').css('height', '940px%');
+
+            $(modalSelector).html("<iframe id='pev' src='/_debug_toolbar/pev-static/index.html#/plans/new'></iframe>");
+            var pev = $('iframe#pev');
+            pev.css('width', '100%');
+            pev.css('height', '740px');
+            $('#ExplainModal .modal-content').css('height', '100%');
+
+            // TODO: that is temporary solution that should be replaced
+            var updateIframe = function (){
+                if ( pev.contents().find('.input-box').length === 0 ){
+                    setTimeout(updateIframe, 1000);
+                    return;
+                }
+                pev.contents().find('.input-box')[1].value = JSON.stringify(data.pev);
+                pev.contents().find('.input-box')[2].value = data.sql;
+                pev.contents().find('.btn')[2].click();
+            }
+            updateIframe();
+
+        });
+    });
+
+});
+</script>

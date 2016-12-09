@@ -47,5 +47,8 @@ def make_application(settings, parent_registry):
     config.commit()
     config.add_static_view('pev-static', 'pyramid_straw.panel.debugpanel_wsgi_app:static/pev')
     config.scan('pyramid_straw.panel.debugpanel_wsgi_app.views')
+    config.override_asset(
+        to_override='pyramid_debugtoolbar.panels:templates/sqlalchemy.dbtmako',
+        override_with='pyramid_straw.panel.debugpanel_wsgi_app:templates/sqlalchemy.dbtmako')
 
     return config.make_wsgi_app()
