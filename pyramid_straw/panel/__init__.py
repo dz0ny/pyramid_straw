@@ -42,7 +42,8 @@ class StrawDebugPanel(DebugPanel):
         return {
             'queries': self.queries,
             'format_sql': format_sql,
-            'static_path': '/_debug_toolbar/straw/static' # TOOO: fix this
+            'route_url': request.route_url,
+            'static_path': '/_debug_toolbar/straw/static'  # TOOO: fix this
         }
 
 

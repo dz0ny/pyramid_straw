@@ -7,29 +7,29 @@
     </thead>
     <tbody class="list">
         % for query in queries:
-            ${str(query)}
             % if query['type'] == 'begin':
-                <tr><hr style="background: green;"></tr>
+                <tr><td></td><td><span class="label label-success" style="width: 100%;">Begin</span></td></tr>
             % endif
             % if query['type'] == 'commit':
-                <tr><hr style="background: green;"></tr>
+                <tr><td></td><td><span class="label label-success" style="width: 100%;">Commit</span></td></tr>
             % endif
             % if query['type'] == 'rollback':
-                <tr><hr style="background: red;"></tr>
+                <tr><td></td><td><span class="label label-success" style="width: 100%;">Rollback</span></td></tr>
             % endif
             % if query['type'] == 'cursor':
             <tr>
                 <td class="res">${'%.2f' % query['duration']}ms
-                    / ${query['memory']}</td>
-                <td>
-                    <span class="highlight">
-                        <div class="query">${format_sql(query['query']) | n}</div>
+                    / ${query['memory']}<br><br><br>
                     <button class="copy btn btn-xs" data-clipboard-text="${query['query'] | n}">
                         Copy
                     </button>
-                    <button class="explain btn btn-xs" data-rawsql="${query['query'] | n}">
+                    <button class="explain btn btn-xs" href="${route_url('debugtoolbar.sql_explain', request_id='1', query_index='1')}" data-target="#ExplainModal" data-toggle="modal">
                         Explain
                     </button>
+                </td>
+                <td>
+                    <span class="highlight">
+                        <div class="query">${format_sql(query['query']) | n}</div>
                     </span>
 
                     <div class="traceback">
