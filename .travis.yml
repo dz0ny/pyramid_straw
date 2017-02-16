@@ -1,15 +1,18 @@
 language: python
+sudo: false
+dist: trusty
+cache: pip
 python:
-  - '2.7.12'
-  - '3.5'
+- 2.7.12
 install:
-  - pip install -r requirements.txt
-  - pip install -r requirements-dev.txt
-  - python setup.py install
-before_script: flake8 pyramid_straw
-script: py.test -v tests
+- pip install -r requirements.txt
+- python setup.py install
+before_script: make lint
+script: make tests
 deploy:
   provider: pypi
   user: dz0ny
+  password:
+    secure: IN6cg+fk+w+oyjeUyA/syyiVgiibQb+D0F10iF8NiqP12bhN536iSrQNkr34F3fSXLQhf6boxOwtjob0PvjSIsdWzaJgKMuflYh+mQ/S2PSpOhdML5SdnJy5hrq787qMbuFTVPll0jtX+v1mKkbGaAoJkJZnO88G3I7WYLsxDi9oTYqkmrDqNxkZrcO40KT7KPMwrw4m+6kEPfz3jhX4v8Njxx9iu3W58vmz2pZo37Y+2weSzpNaTZcbSbbph469srOcYo5Gad58fHK6iSvhfgFt+Uqfw6ui7WBvKcvJdlJbEsdXSoN9HC2weJjLV5g/9lWbbHAkGBt8VjPpzAQB1g1vSI2mnUvy1DmyNaze/Gy4ipf7Gtsvnc9lcaVOuhUUnZc+uFcc9V65T4ZP6gIQfh6uHUkv6BCjllnWrXVTLPCrlG1AwLYx/rB2/3wiGPnOODzLkt2zVwwuFTZXX6EO6hjbi4jCF0pA74Qj7fTi1O+Ya0ovUMYS/KFVEBIvHpdjtlWHFLMy65P7+4z/ehiGTaBG4zqhKp/n5s3fjj+Mvm0F0FfGwMi3a/IZTgNf+7oR9EdTABN63f9qT1vFqlpsfMcrUIYq5rJncl4S4rlUvSm7/0Bi0ygqgbLAZok6qDdtAbc8c8b7tWuuuZodawYs6Rftdqd0lPi4Lf0IkMC1wP4=
   on:
-    tags: true
+    branch: master

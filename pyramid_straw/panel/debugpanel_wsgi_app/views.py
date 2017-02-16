@@ -14,7 +14,7 @@ class StrawSQLAlchemyViews(SQLAlchemyViews):
     )
     @view_config(
         route_name='debugtoolbar.sql_explain',
-        renderer='pyramid_straw.panel.debugpanel_wsgi_app:templates/sqlalchemy_explain.dbtmako',
+        renderer='pyramid_straw.panel.debugpanel_wsgi_app:templates/sqlalchemy_explain.dbtmako',  # noqa
     )
     def sql_explain(self):
         query_dict = self.find_query()
@@ -30,7 +30,7 @@ class StrawSQLAlchemyViews(SQLAlchemyViews):
 
         pev = None
         if engine.name.startswith('postgresql'):
-            query = 'EXPLAIN (ANALYZE, COSTS, VERBOSE, BUFFERS, FORMAT JSON) %s' % stmt
+            query = 'EXPLAIN (ANALYZE, COSTS, VERBOSE, BUFFERS, FORMAT JSON) %s' % stmt  # noqa
             pev = engine.execute(query, params).fetchall()
 
         if engine.name.startswith('sqlite'):

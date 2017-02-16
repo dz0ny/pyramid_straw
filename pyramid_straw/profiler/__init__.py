@@ -65,7 +65,7 @@ def to_toolbar(data):
     """Inject analyzed data in request."""
     request = get_current_request()
 
-    if not request and getattr(request, 'straw_data', None):
+    if not request and not getattr(request, 'straw_data', None):
         return
 
     with lock:
@@ -127,4 +127,3 @@ def includeme(config):
 
     except ImportError:
         logger.warning('SQLAlchemy is not installed.')
-

@@ -1,6 +1,7 @@
 """
 Pyramid Straw
 """
+from setuptools import find_packages
 from setuptools import setup
 
 import codecs
@@ -23,11 +24,13 @@ setup(
     author='dz0ny',
     author_email='dz0ny@ubuntu.si',
     description='SQLAlchemy profiler for Pyramid Framework',
-    packages=['pyramid_straw'],
+    packages=find_packages(exclude=['tests']),
     platforms='any',
+    package_data={
+        'static': ['static'],
+    },
     install_requires=[
         'pyramid',
-        'psutil',
         'SQLAlchemy',
         'pyramid_debugtoolbar',
     ],

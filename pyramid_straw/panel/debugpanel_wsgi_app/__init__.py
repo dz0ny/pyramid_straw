@@ -18,6 +18,7 @@ def includeme(config):
     config.registry.registerUtility(new_app, IToolbarWSGIApp)
     config.introspection = introspection
 
+
 # original config, only chages - returns config instead of app
 def make_application(settings, parent_registry):
     """ WSGI application for rendering the debug toolbar."""
@@ -45,12 +46,13 @@ def make_application(settings, parent_registry):
 
     # overriding
     config.commit()
-    config.add_static_view('pev-static', 'pyramid_straw.panel.debugpanel_wsgi_app:static/pev')
+    config.add_static_view('pev-static', 'pyramid_straw.panel.debugpanel_wsgi_app:static/pev')  # noqa
     config.scan('pyramid_straw.panel.debugpanel_wsgi_app.views')
     config.override_asset(
         to_override='pyramid_debugtoolbar.panels:templates/sqlalchemy.dbtmako',
-        override_with='pyramid_straw.panel.debugpanel_wsgi_app:templates/sqlalchemy.dbtmako')
+        override_with='pyramid_straw.panel.debugpanel_wsgi_app:templates/sqlalchemy.dbtmako'  # noqa
+    )
 
-    config.add_static_view('/_debug_toolbar/straw/static', 'pyramid_straw:static/', static=True)
+    config.add_static_view('/_debug_toolbar/straw/static', 'pyramid_straw:static/', static=True)  # noqa
 
     return config.make_wsgi_app()

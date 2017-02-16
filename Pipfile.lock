@@ -1,0 +1,150 @@
+{
+    "default": {
+        "repoze.lru": {
+            "version": "==0.6",
+            "hash": "sha256:0f7a323bf716d3cb6cb3910cd4fccbee0b3d3793322738566ecce163b01bbd31"
+        },
+        "Mako": {
+            "version": "==1.0.6",
+            "hash": "sha256:48559ebd872a8e77f92005884b3d88ffae552812cdf17db6768e5c3be5ebbe0d"
+        },
+        "SQLAlchemy": {
+            "version": "==1.1.5",
+            "hash": "sha256:68fb40049690e567ebda7b270176f5abf0d53d9fbd515fec4e43326f601119b6"
+        },
+        "venusian": {
+            "version": "==1.0",
+            "hash": "sha256:1720cff2ca9c369c840c1d685a7c7a21da1afa687bfe62edd93cae4bf429ca5a"
+        },
+        "zope.deprecation": {
+            "version": "==4.2.0",
+            "hash": "sha256:15e8a7135f40084b0e15cea9f7cb78e872b8c6a70805f0a0b91b7ce52913e31c"
+        },
+        "zope.interface": {
+            "version": "==4.3.3",
+            "hash": "sha256:8780ef68ca8c3fe1abb30c058a59015129d6e04a6b02c2e56b9c7de6078dfa88"
+        },
+        "Pygments": {
+            "version": "==2.2.0",
+            "hash": "sha256:78f3f434bcc5d6ee09020f92ba487f95ba50f1e3ef83ae96b9d5ffa1bab25c5d"
+        },
+        "PasteDeploy": {
+            "version": "==1.5.2",
+            "hash": "sha256:39973e73f391335fac8bc8a8a95f7d34a9f42e2775600ce2dc518d93b37ef943"
+        },
+        "pyramid": {
+            "version": "==1.8.1",
+            "hash": "sha256:9035da3e1eb997f867563695378ff392415973bd0517ac92104313ae5a14d11f"
+        },
+        "pyramid-mako": {
+            "version": "==1.0.2",
+            "hash": "sha256:6da0987b9874cf53e72139624665a73965bbd7fbde504d1753e4231ce916f3a1"
+        },
+        "packaging": {
+            "version": "==16.8",
+            "hash": "sha256:99276dc6e3a7851f32027a68f1095cd3f77c148091b092ea867a351811cfe388"
+        },
+        "MarkupSafe": {
+            "version": "==0.23",
+            "hash": "sha256:a4ec1aff59b95a14b45eb2e23761a0179e98319da5a7eb76b56ea8cdc7b871c3"
+        },
+        "pyparsing": {
+            "version": "==2.1.10",
+            "hash": "sha256:67101d7acee692962f33dd30b5dce079ff532dd9aa99ff48d52a3dad51d2fe84"
+        },
+        "translationstring": {
+            "version": "==1.3",
+            "hash": "sha256:e26c7bf383413234ed442e0980a2ebe192b95e3745288a8fd2805156d27515b4"
+        },
+        "setuptools": {
+            "version": "==34.2.0",
+            "hash": "sha256:75d352eeeddd96a3fb702b1da9f8b89e5f8c045dbd86e3894516733eb5f99713"
+        },
+        "pyramid_debugtoolbar": {
+            "version": "==3.0.5",
+            "hash": "sha256:568f2ce3011b955e81ff0a982b0cc61f26622801881d28899bdba02374468cbe"
+        },
+        "hupper": {
+            "version": "==0.4.2",
+            "hash": "sha256:2a15e90b4a19d55015f3a7e348bd15dbc93fbe2bd9c49d6b781d05794bd06c84"
+        },
+        "WebOb": {
+            "version": "==1.7.1",
+            "hash": "sha256:e56ba5abf09f7ab4360d34acf5d4c21ae4420e710906c6e51daad4a431743510"
+        },
+        "six": {
+            "version": "==1.10.0",
+            "hash": "sha256:0ff78c403d9bccf5a425a6d31a12aa6b47f1c21ca4dc2573a7e2f32a97335eb1"
+        },
+        "appdirs": {
+            "version": "==1.4.0",
+            "hash": "sha256:85e58578db8f29538f3109c11250c2a5514a2fcdc9890d9b2fe777eb55517736"
+        }
+    },
+    "develop": {
+        "py": {
+            "version": "==1.4.32",
+            "hash": "sha256:2d4bba2e25fff58140e6bdce1e485e89bb59776adbe01d490baa6b1f37a3dd6b"
+        },
+        "pycodestyle": {
+            "version": "==2.3.1",
+            "hash": "sha256:6c4245ade1edfad79c3446fadfc96b0de2759662dc29d07d80a6f27ad1ca6ba9"
+        },
+        "pyflakes": {
+            "version": "==1.5.0",
+            "hash": "sha256:cc5eadfb38041f8366128786b4ca12700ed05bbf1403d808e89d57d67a3875a7"
+        },
+        "enum34": {
+            "version": "==1.1.6",
+            "hash": "sha256:6bd0f6ad48ec2aa117d3d141940d484deccda84d4fcd884f5c3d93c23ecd8c79"
+        },
+        "six": {
+            "version": "==1.10.0",
+            "hash": "sha256:0ff78c403d9bccf5a425a6d31a12aa6b47f1c21ca4dc2573a7e2f32a97335eb1"
+        },
+        "packaging": {
+            "version": "==16.8",
+            "hash": "sha256:99276dc6e3a7851f32027a68f1095cd3f77c148091b092ea867a351811cfe388"
+        },
+        "mccabe": {
+            "version": "==0.6.1",
+            "hash": "sha256:ab8a6258860da4b6677da4bd2fe5dc2c659cff31b3ee4f7f5d64e79735b80d42"
+        },
+        "pytest": {
+            "version": "==3.0.6",
+            "hash": "sha256:da0ab50c7eec0683bc24f1c1137db1f4111752054ecdad63125e7ec71316b813"
+        },
+        "setuptools": {
+            "version": "==34.2.0",
+            "hash": "sha256:75d352eeeddd96a3fb702b1da9f8b89e5f8c045dbd86e3894516733eb5f99713"
+        },
+        "pyparsing": {
+            "version": "==2.1.10",
+            "hash": "sha256:67101d7acee692962f33dd30b5dce079ff532dd9aa99ff48d52a3dad51d2fe84"
+        },
+        "flake8": {
+            "version": "==3.3.0",
+            "hash": "sha256:83905eadba99f73fbfe966598aaf1682b3eb6755d2263c5b33a4e8367d60b0d1"
+        },
+        "appdirs": {
+            "version": "==1.4.0",
+            "hash": "sha256:85e58578db8f29538f3109c11250c2a5514a2fcdc9890d9b2fe777eb55517736"
+        },
+        "configparser": {
+            "version": "==3.5.0",
+            "hash": "sha256:5308b47021bc2340965c371f0f058cc6971a04502638d4244225c49d80db273a"
+        }
+    },
+    "_meta": {
+        "sources": [
+            {
+                "url": "https://pypi.python.org/simple",
+                "verify_ssl": true
+            }
+        ],
+        "requires": {},
+        "hash": {
+            "sha256": "620a897529f29db11f402b9130eb82a1846273b03f8c3e3fb62a4af3fd809144"
+        }
+    }
+}

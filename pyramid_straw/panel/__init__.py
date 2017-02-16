@@ -1,6 +1,7 @@
 from pyramid_debugtoolbar.panels import DebugPanel
 from pyramid_debugtoolbar.utils import format_sql as ppq
 
+
 def format_sql(query):
     query = ppq(query)
     query = query.replace(',', ',<br/>')
