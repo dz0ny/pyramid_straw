@@ -27,7 +27,8 @@ setup(
     packages=find_packages(exclude=['tests']),
     platforms='any',
     package_data={
-        'static': ['static'],
+        'static': ['*'],
+        'templates': ['*'],
     },
     install_requires=[
         'pyramid',

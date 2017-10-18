@@ -1,6 +1,10 @@
 test:
 	py.test tests
 
+dist:
+	python setup.py sdist
+	python setup.py bdist_wheel --universal
+
 lint:
 	flake8 pyramid_straw
 	flake8 tests
@@ -12,4 +16,4 @@ sort:
 
 all: lint test
 
-.PHONY: all
+.PHONY: all dist
